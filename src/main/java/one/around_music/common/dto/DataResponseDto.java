@@ -1,5 +1,8 @@
 package one.around_music.common.dto;
 
+import lombok.Getter;
+
+@Getter
 public class DataResponseDto<T> extends ResponseDto{
 
     private T data;

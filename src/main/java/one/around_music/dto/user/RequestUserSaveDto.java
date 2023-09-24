@@ -4,6 +4,9 @@ import lombok.Data;
 
 @Data
 public class RequestUserSaveDto {
-    private String username;
+    private String email;
+    private String nickname;
+    private char sex;
+    private int age;
     private String password;
 }

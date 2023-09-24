@@ -7,9 +7,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ErrorCode {
 
-    NOT_FOUND(404, "NOT FOUND", "NOT FOUND");
+    NOT_FOUND(404),
+    BAD_REQUEST(400)
+    ;
 
     private int status;
-    private String errorCode;
-    private String message;
 }

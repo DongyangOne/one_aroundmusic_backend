@@ -1,12 +1,13 @@
 package one.around_music.domain;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import one.around_music.common.entity.BaseEntity;
 import one.around_music.config.jwt.UserAuthority;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "tbl_user")
@@ -21,10 +22,25 @@ public class User extends BaseEntity {
     private Long id;
 
     @Column(unique = true, nullable = false, length = 50)
-    private String username;
+    private String email;
+
+    @Column(name = "nickname", length = 20, nullable = false)
+    private String nickname;
+
+    @Column(name = "sex", length = 1, nullable = false)
+    private char sex;
+
+    @Column(name = "age", length = 10, nullable = false)
+    private int age;
 
     @Column(length = 120, nullable = false)
     private String password;
+
+    @Column(name = "profileImg", length = 120)
+    private String profileImg;
+
+//    @Column(name = "socialToken", length = 120)
+//    private String socialToken;
 
     @Column(nullable = false)
     private UserAuthority authority;
