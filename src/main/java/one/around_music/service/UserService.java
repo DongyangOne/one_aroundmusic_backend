@@ -10,5 +10,5 @@ public interface UserService {
 
     ResponseEntity<?> saveUser(RequestUserSaveDto dto);
     ResponseEntity<?> login(RequestUserLoginDto dto);
-
+    ResponseEntity<?> findAllUser();
 }

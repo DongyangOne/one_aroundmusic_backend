@@ -6,7 +6,5 @@ import lombok.Data;
 public class RequestUserSaveDto {
     private String email;
     private String nickname;
-    private char sex;
-    private int age;
-    private String password;
+    private String socialToken;
 }

@@ -13,7 +13,7 @@ public class FriendCustomRepositoryImpl implements FriendCustomRepository {
 
     private final JPAQueryFactory queryFactory;
 
-    public List<FriendVo> findInviteList(Long userId) {
+    public List<FriendVo> findReciveInviteList(Long userId) {
         QFriend f  = QFriend.friend1;
         List<FriendVo> list = queryFactory.select(
                 Projections.constructor(
