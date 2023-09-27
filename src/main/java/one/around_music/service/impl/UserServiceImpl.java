@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -30,12 +31,13 @@ public class UserServiceImpl implements UserService {
     private final UserJpaRepository userJpaRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
+    private final PasswordEncoder passwordEncoder;
 
 
     @Override
     public ResponseEntity<?> saveUser(RequestUserSaveDto dto) {
 
-        userJpaRepository.save(User.builder().email(dto.getEmail()).authority(UserAuthority.USER).socialToken(dto.getSocialToken())
+        userJpaRepository.save(User.builder().email(dto.getEmail()).authority(UserAuthority.USER).socialToken(passwordEncoder.encode(dto.getSocialToken()))
                 .nickname(dto.getNickname()).build());
 
         return CommonResponse.createResponse(HttpStatus.OK.value(), "회원가입에 성공했습니다.");
@@ -43,15 +45,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<?> login(RequestUserLoginDto dto) {
-        Optional<User> findUser = userJpaRepository.findBySocialToken(dto.getSocialToken());
+        Optional<User> findUser = userJpaRepository.findByEmail(dto.getEmail());
 
         if(findUser.isEmpty()) {
             throw new CustomException("회원가입이 필요합니다.", HttpStatus.NOT_FOUND);
         }
 
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(findUser.get().getEmail(), findUser.get().getSocialToken());
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getSocialToken());
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-
+        SecurityContextHolder.getContext().setAuthentication(authentication);
         JwtDto jwtDto = jwtTokenProvider.generateToken(authentication);
 
         Map<String, String> response = new HashMap<>();

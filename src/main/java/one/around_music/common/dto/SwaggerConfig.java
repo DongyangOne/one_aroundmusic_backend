@@ -5,7 +5,9 @@ public class SwaggerConfig {
     public static final String REGISTER_SUCCESS_RESPONSE = "{\"status\":200,\"message\":\"회원가입에 성공하였습니다.\"}";
     public static final String ADD_FRIEND_SUCCESS_RESPONSE = "{\"status\":200,\"message\":\"친구 요청에 성공하였습니다.\"}";
     public static final String FIND_ALL_MARKER_SUCCESS_RESPONSE = "{\"status\":200,\"message\":\"주변 마커 전체 조회에 성공했습니다.\", \"data\":[{\"id\": 1, \"latitude\": 37.500584, \"longitude\": 126.925425}]}";
-
+    public static final String AR_SAVE_SUCCESS_RESPONSE = "{\"status\":200,\"message\":\"AR 게시에 성공했습니다.\"}";
+    public static final String FIND_ALL_AR_SUCCESS_RESPONSE = "{\"status\":200,\"message\":\"해당 마커 AR 전체 조회에 성공했습니다.\", \"data\":[{\"id\": 1, \"music\": {\"id\": 1, \"youtubeId\": \"string\", \"title\": \"title\", \"thumbnail\": \"url\"}, \"reward\": \"url\", \"latitude\": 37.500584, \"longitude\": 126.925425}]}";
+    public static final String AR_DELETE_SUCCESS_RESPONSE = "{\"status\":200,\"message\":\"AR 삭제에 성공했습니다.\"}";
     public static final String BAD_REQUEST = "잘못된 요청 입니다.";
     public static final String NOT_FOUND = "찾을 수 없습니다.";
 }
