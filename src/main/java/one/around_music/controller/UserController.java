@@ -39,5 +39,4 @@ public class UserController {
     public ResponseEntity<?> login(@RequestBody RequestUserLoginDto dto) {
         return userService.login(dto);
     }
-
 }

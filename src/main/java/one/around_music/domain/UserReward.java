@@ -28,5 +28,7 @@ public class UserReward extends BaseEntity {
     @JoinColumn(name = "reward_id")
     private Reward reward;
 
-
+    public void setReward(Reward reward) {
+        this.reward = reward;
+    }
 }

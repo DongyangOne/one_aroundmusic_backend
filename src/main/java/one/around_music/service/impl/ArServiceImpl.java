@@ -65,6 +65,7 @@ public class ArServiceImpl implements ArService {
             throw new CustomException("해당 AR을 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
         }
         arJpaRepository.delete(findAr.get());
+        markerJpaRepository.delete(findAr.get().getMarker());
         return CommonResponse.createResponse(HttpStatus.OK.value(), "AR삭제를 성공했습니다.");
     }
 }

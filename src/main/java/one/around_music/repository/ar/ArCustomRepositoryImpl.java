@@ -7,6 +7,7 @@ import one.around_music.domain.QAr;
 import one.around_music.domain.QUserReward;
 import one.around_music.enums.RewardType;
 import one.around_music.vo.ArVo;
+import one.around_music.vo.MusicVo;
 
 import java.util.List;
 @RequiredArgsConstructor
@@ -20,7 +21,13 @@ public class ArCustomRepositoryImpl implements ArCustomRepository {
                 Projections.constructor(
                         ArVo.class,
                         ar.id,
-                        ar.music,
+                        Projections.constructor(
+                                MusicVo.class,
+                                ar.music.youtubId,
+                                ar.music.youtubId,
+                                ar.music.title,
+                                ar.music.thumbnail
+                        ),
                         ur.reward.reward,
                         ar.latitude,
                         ar.longitude

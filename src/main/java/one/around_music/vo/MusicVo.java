@@ -5,7 +5,10 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class UserRewardVo {
+public class MusicVo {
     private Long id;
-    private String reward;
+    private String youtubeId;
+    private String title;
+    private String thumbnail;
+
 }

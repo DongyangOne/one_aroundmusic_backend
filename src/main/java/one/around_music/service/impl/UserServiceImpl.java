@@ -9,7 +9,9 @@ import one.around_music.config.jwt.UserAuthority;
 import one.around_music.domain.User;
 import one.around_music.dto.user.RequestUserLoginDto;
 import one.around_music.dto.user.RequestUserSaveDto;
+import one.around_music.repository.reward.RewardJpaRepository;
 import one.around_music.repository.user.UserJpaRepository;
+import one.around_music.repository.userReward.UserRewardJpaRepositroy;
 import one.around_music.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,9 +35,13 @@ public class UserServiceImpl implements UserService {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final PasswordEncoder passwordEncoder;
 
-
     @Override
     public ResponseEntity<?> saveUser(RequestUserSaveDto dto) {
+
+        Optional<User> findUser = userJpaRepository.findByEmail(dto.getEmail());
+        if(findUser.isPresent()) {
+            throw new CustomException("이미 가입된 회원입니다.",  HttpStatus.BAD_REQUEST);
+        }
 
         userJpaRepository.save(User.builder().email(dto.getEmail()).authority(UserAuthority.USER).socialToken(passwordEncoder.encode(dto.getSocialToken()))
                 .nickname(dto.getNickname()).build());

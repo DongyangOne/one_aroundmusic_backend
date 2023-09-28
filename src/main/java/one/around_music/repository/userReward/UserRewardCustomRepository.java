@@ -1,8 +1,11 @@
 package one.around_music.repository.userReward;
 
+import one.around_music.domain.UserReward;
 import one.around_music.enums.RewardType;
 import one.around_music.vo.UserRewardVo;
 
+import java.util.Optional;
+
 public interface UserRewardCustomRepository {
-    String findReward(Long userId, RewardType rewardType);
+    UserRewardVo findReward(Long userId, RewardType rewardType);
 }

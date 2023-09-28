@@ -64,7 +64,3 @@ tasks.withType(JavaCompile) {
 clean {
     delete file(querydslSrcDir)
 }
-
-tasks.named('test') {
-    useJUnitPlatform()
-}
