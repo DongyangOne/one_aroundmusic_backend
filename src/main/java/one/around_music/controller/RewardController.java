@@ -31,7 +31,7 @@ public class RewardController {
         return rewardService.saveReward(dto);
     }
 
-    @Operation(summary = "Find All Reward", description = "리워드 전체 조회 \n rewardType = walk | pop | listen")
+    @Operation(summary = "Find All Reward", description = "리워드 전체 조회 (리워드 타입에 따라 내가 선택한 리워드와 모든 리워드를 조회힙니다. (rewardType = walk | pop | listen)))")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json", examples = {@ExampleObject(value = SwaggerConfig.FIND_ALL_REWARD_SUCCESS_RESPONSE)})),
     })
@@ -40,7 +40,10 @@ public class RewardController {
         return rewardService.findAllReward(rewardType);
     }
 
-    @Operation(summary = "Select Reward", description = "리워드 적용")
+    @Operation(summary = "Select Reward", description = "리워드 적용 (현재 내가 선택한 리워드의 id와 새로 선택할 리워드의 id를 받아 교체합니다.)")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json", examples = {@ExampleObject(value = SwaggerConfig.REWARD_SELECT_SUCCESS_RESPONSE)})),
+    })
     @PatchMapping
     public ResponseEntity<?> selectReward(@RequestBody RequestSelectRewardDto dto) {
         return rewardService.selectReward(dto);

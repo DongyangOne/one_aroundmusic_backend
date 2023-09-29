@@ -12,7 +12,7 @@ public class RequestArSaveDto {
     @Schema(example = "title")
     private String title;
 
-    @Schema(example = "url")
+    @Schema(example = "/thumb/default.png")
     private String thumbnail;
 
     @Schema(example = "37.498063")

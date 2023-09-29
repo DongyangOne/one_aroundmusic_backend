@@ -36,4 +36,7 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private UserAuthority authority;
 
+    public void setProfileImg(String profileImg) {
+        this.profileImg = profileImg;
+    }
 }

@@ -24,7 +24,7 @@ public class MarkerController {
 
     private final MarkerService markerService;
 
-    @Operation(summary = "Find All Marker", description = "주변 마커 전체 조회")
+    @Operation(summary = "Find All Marker", description = "주변 마커 전체 조회 (현재 나의 위치를 입력 받아 주변 마커를 전부 조회합니다.)")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json", examples = {@ExampleObject(value = SwaggerConfig.FIND_ALL_MARKER_SUCCESS_RESPONSE)})),
     })

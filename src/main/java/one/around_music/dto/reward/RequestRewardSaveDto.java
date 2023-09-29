@@ -10,7 +10,7 @@ public class RequestRewardSaveDto {
     @Schema(example = "WALKING | POPULARITY | LISTENING")
     private RewardType rewardType;
 
-    @Schema(example = "url")
+    @Schema(example = "/walk/default.png")
     private String reward;
 
 }

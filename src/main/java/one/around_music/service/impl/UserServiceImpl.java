@@ -3,12 +3,14 @@ package one.around_music.service.impl;
 import lombok.RequiredArgsConstructor;
 import one.around_music.common.dto.CommonResponse;
 import one.around_music.common.dto.CustomException;
+import one.around_music.common.util.SecurityUtil;
 import one.around_music.config.jwt.JwtDto;
 import one.around_music.config.jwt.JwtTokenProvider;
 import one.around_music.config.jwt.UserAuthority;
 import one.around_music.domain.User;
 import one.around_music.dto.user.RequestUserLoginDto;
 import one.around_music.dto.user.RequestUserSaveDto;
+import one.around_music.dto.user.RequestUserUpdateDto;
 import one.around_music.repository.reward.RewardJpaRepository;
 import one.around_music.repository.user.UserJpaRepository;
 import one.around_music.repository.userReward.UserRewardJpaRepositroy;
@@ -72,5 +74,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<?> findAllUser() {
         return null;
+    }
+
+    @Override
+    public ResponseEntity<?> updateProfileImg(RequestUserUpdateDto dto) {
+        User findUser = SecurityUtil.getCurrentUserId(userJpaRepository);
+        findUser.setProfileImg(dto.getProfileImg());
+        userJpaRepository.save(findUser);
+        return CommonResponse.createResponse(HttpStatus.OK.value(), "프로필 이미지 변경에 성공했습니다.");
     }
 }

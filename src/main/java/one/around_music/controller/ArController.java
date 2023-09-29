@@ -30,7 +30,7 @@ public class ArController {
         return arService.saveAr(dto);
     }
 
-    @Operation(summary = "Find All AR", description = "AR 전체 조회 API")
+    @Operation(summary = "Find All AR", description = "AR 전체 조회 API (마커 id를 받아 그 마커에 해당하는 모든 ar를 조회합니다.)")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json", examples = {@ExampleObject(value = SwaggerConfig.FIND_ALL_AR_SUCCESS_RESPONSE)})),
     })
