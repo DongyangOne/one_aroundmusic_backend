@@ -9,6 +9,7 @@ public interface FriendService {
     ResponseEntity<?> addFriend(RequestFriendSaveDto dto);
     ResponseEntity<?> deleteFriend(Long id);
     ResponseEntity<?> findAllReciveInvite();
+    ResponseEntity<?> findAllSendInvite();
     ResponseEntity<?> updateInvite(RequestInviteUpdateDto dto);
     ResponseEntity<?> findAllFriends();
 }
