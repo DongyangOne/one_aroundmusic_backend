@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface FriendCustomRepository {
 
-    List<FriendVo> findInviteList(Long userId);
+    List<FriendVo> findReciveInviteList(Long userId);
     List<FriendVo> findFriendList(Long userId);
 }

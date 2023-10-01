@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import one.around_music.common.dto.SwaggerConfig;
 import one.around_music.dto.user.RequestUserLoginDto;
 import one.around_music.dto.user.RequestUserSaveDto;
+import one.around_music.dto.user.RequestUserUpdateDto;
 import one.around_music.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +39,15 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody RequestUserLoginDto dto) {
         return userService.login(dto);
+    }
+    
+    @Operation(summary = "Update ProfileImg", description = "프로필 사진 변경")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json", examples = {@ExampleObject(value = SwaggerConfig.UPDATE_PROFILEIMG_SUCCESS_RESPONSE)})),
+    })
+    @PatchMapping("/profileImg")
+    public ResponseEntity<?> updateProfileImg(@RequestBody RequestUserUpdateDto dto) {
+        return userService.updateProfileImg(dto);
     }
 
 }

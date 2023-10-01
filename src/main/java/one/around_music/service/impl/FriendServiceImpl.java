@@ -80,11 +80,11 @@ public class FriendServiceImpl implements FriendService{
     }
 
     @Override
-    public ResponseEntity<?> findAllInvite() {
+    public ResponseEntity<?> findAllReciveInvite() {
 
         User findUser = SecurityUtil.getCurrentUserId(userJpaRepository);
 
-        List<FriendVo> findInviteList = friendJpaRepository.findInviteList(findUser.getId());
+        List<FriendVo> findInviteList = friendJpaRepository.findReciveInviteList(findUser.getId());
 
         return CommonResponse.createResponse(HttpStatus.NO_CONTENT.value(), "친구 요청 목록을 조회합니다.", findInviteList);
     }

@@ -8,29 +8,29 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import one.around_music.common.dto.SwaggerConfig;
-import one.around_music.dto.friend.RequestFriendSaveDto;
-import one.around_music.service.FriendService;
+import one.around_music.dto.marker.RequestMarkerFindDto;
+import one.around_music.service.MarkerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/friend")
-@Tag(name = "Friend Api", description = "친구 API")
-public class FriendController {
+@RequiredArgsConstructor
+@RequestMapping("/api/marker")
+@Tag(name = "Marker Api", description = "마커 API")
+public class MarkerController {
 
-    private final FriendService friendService;
+    private final MarkerService markerService;
 
-    @Operation(summary = "Add Friend", description = "친구 추가 API")
+    @Operation(summary = "Find All Marker", description = "주변 마커 전체 조회 (현재 나의 위치를 입력 받아 주변 마커를 전부 조회합니다.)")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json", examples = {@ExampleObject(value = SwaggerConfig.ADD_FRIEND_SUCCESS_RESPONSE)})),
+            @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json", examples = {@ExampleObject(value = SwaggerConfig.FIND_ALL_MARKER_SUCCESS_RESPONSE)})),
     })
-    @PostMapping
-    public ResponseEntity<?> addFriend(@RequestBody RequestFriendSaveDto dto) {
-        return friendService.addFriend(dto);
+    @PostMapping()
+    public ResponseEntity<?> findAllMarker(@RequestBody RequestMarkerFindDto dto) {
+        return markerService.findAllMarker(dto);
     }
 
 }

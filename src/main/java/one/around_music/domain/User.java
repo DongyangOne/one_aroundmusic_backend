@@ -27,22 +27,16 @@ public class User extends BaseEntity {
     @Column(name = "nickname", length = 20, nullable = false)
     private String nickname;
 
-    @Column(name = "sex", length = 1, nullable = false)
-    private char sex;
-
-    @Column(name = "age", length = 10, nullable = false)
-    private int age;
-
-    @Column(length = 120, nullable = false)
-    private String password;
-
     @Column(name = "profileImg", length = 120)
     private String profileImg;
 
-//    @Column(name = "socialToken", length = 120)
-//    private String socialToken;
+    @Column(name = "socialToken", length = 200, nullable = false)
+    private String socialToken;
 
     @Column(nullable = false)
     private UserAuthority authority;
 
+    public void setProfileImg(String profileImg) {
+        this.profileImg = profileImg;
+    }
 }

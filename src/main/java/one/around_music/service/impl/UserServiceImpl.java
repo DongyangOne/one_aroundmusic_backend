@@ -2,19 +2,25 @@ package one.around_music.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import one.around_music.common.dto.CommonResponse;
+import one.around_music.common.dto.CustomException;
+import one.around_music.common.util.SecurityUtil;
 import one.around_music.config.jwt.JwtDto;
 import one.around_music.config.jwt.JwtTokenProvider;
 import one.around_music.config.jwt.UserAuthority;
 import one.around_music.domain.User;
 import one.around_music.dto.user.RequestUserLoginDto;
 import one.around_music.dto.user.RequestUserSaveDto;
+import one.around_music.dto.user.RequestUserUpdateDto;
+import one.around_music.repository.reward.RewardJpaRepository;
 import one.around_music.repository.user.UserJpaRepository;
+import one.around_music.repository.userReward.UserRewardJpaRepositroy;
 import one.around_music.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -31,12 +37,16 @@ public class UserServiceImpl implements UserService {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final PasswordEncoder passwordEncoder;
 
-
     @Override
     public ResponseEntity<?> saveUser(RequestUserSaveDto dto) {
 
-        userJpaRepository.save(User.builder().email(dto.getEmail()).authority(UserAuthority.USER).password(passwordEncoder.encode(dto.getPassword()))
-                .nickname(dto.getNickname()).age(dto.getAge()).sex(dto.getSex()).build());
+        Optional<User> findUser = userJpaRepository.findByEmail(dto.getEmail());
+        if(findUser.isPresent()) {
+            throw new CustomException("이미 가입된 회원입니다.",  HttpStatus.BAD_REQUEST);
+        }
+
+        userJpaRepository.save(User.builder().email(dto.getEmail()).authority(UserAuthority.USER).socialToken(passwordEncoder.encode(dto.getSocialToken()))
+                .nickname(dto.getNickname()).build());
 
         return CommonResponse.createResponse(HttpStatus.OK.value(), "회원가입에 성공했습니다.");
     }
@@ -46,22 +56,31 @@ public class UserServiceImpl implements UserService {
         Optional<User> findUser = userJpaRepository.findByEmail(dto.getEmail());
 
         if(findUser.isEmpty()) {
-            return CommonResponse.createResponse(HttpStatus.NOT_FOUND.value(), "유저를 찾을 수 없습니다.");
+            throw new CustomException("회원가입이 필요합니다.", HttpStatus.NOT_FOUND);
         }
 
-        if(!passwordEncoder.matches(dto.getPassword(), findUser.get().getPassword())) {
-            return CommonResponse.createResponse(HttpStatus.BAD_REQUEST.value(), "패스워드가 일치하지 않습니다.");
-        }
-
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword());
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getSocialToken());
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-
-        JwtDto jwtDto = jwtTokenProvider.generateToken(authentication, findUser.get().getId());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        JwtDto jwtDto = jwtTokenProvider.generateToken(authentication);
 
         Map<String, String> response = new HashMap<>();
         response.put("access", jwtDto.getAccessToken());
         response.put("refresh", jwtDto.getRefreshToken());
 
         return CommonResponse.createResponse(HttpStatus.OK.value(), "로그인 성공.", response);
+    }
+
+    @Override
+    public ResponseEntity<?> findAllUser() {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<?> updateProfileImg(RequestUserUpdateDto dto) {
+        User findUser = SecurityUtil.getCurrentUserId(userJpaRepository);
+        findUser.setProfileImg(dto.getProfileImg());
+        userJpaRepository.save(findUser);
+        return CommonResponse.createResponse(HttpStatus.OK.value(), "프로필 이미지 변경에 성공했습니다.");
     }
 }
