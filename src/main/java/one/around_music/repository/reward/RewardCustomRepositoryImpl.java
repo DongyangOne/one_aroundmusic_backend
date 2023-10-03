@@ -4,10 +4,8 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import one.around_music.domain.QReward;
-import one.around_music.domain.Reward;
 import one.around_music.enums.RewardType;
 import one.around_music.vo.RewardVo;
-import one.around_music.vo.UserRewardVo;
 
 import java.util.List;
 
@@ -26,4 +24,5 @@ public class RewardCustomRepositoryImpl implements RewardCustomRepository{
         ).from(r)
                 .where(r.rewardType.eq(rewardType)).fetch();
     }
+
 }

@@ -20,8 +20,8 @@ public class FriendCustomRepositoryImpl implements FriendCustomRepository {
                                 FriendVo.class,
                                 f.id,
                                 f.user.id,
-                                f.user.profileImg,
-                                f.user.nickname
+                                f.user.nickname,
+                                f.user.profileImg
                         )
                 ).from(f)
                 .where(f.status.eq("N"))
@@ -37,8 +37,8 @@ public class FriendCustomRepositoryImpl implements FriendCustomRepository {
                                 FriendVo.class,
                                 f.id,
                                 f.friend.id,
-                                f.friend.profileImg,
-                                f.friend.nickname
+                                f.friend.nickname,
+                                f.friend.profileImg
                         )
                 ).from(f)
                 .where(f.status.eq("Y"))
@@ -54,8 +54,8 @@ public class FriendCustomRepositoryImpl implements FriendCustomRepository {
                                 FriendVo.class,
                                 f.id,
                                 f.friend.id,
-                                f.friend.profileImg,
-                                f.friend.nickname
+                                f.friend.nickname,
+                                f.friend.profileImg
                         )
                 ).from(f)
                 .where(f.status.eq("Y"))
@@ -66,8 +66,8 @@ public class FriendCustomRepositoryImpl implements FriendCustomRepository {
                                 FriendVo.class,
                                 f.id,
                                 f.user.id,
-                                f.user.profileImg,
-                                f.user.nickname
+                                f.user.nickname,
+                                f.user.profileImg
                         )
                 ).from(f)
                 .where(f.status.eq("Y"))
