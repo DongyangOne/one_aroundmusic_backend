@@ -8,4 +8,5 @@ public interface FriendCustomRepository {
 
     List<FriendVo> findReciveInviteList(Long userId);
     List<FriendVo> findFriendList(Long userId);
+    List<FriendVo> findSendInviteList(Long userId);
 }

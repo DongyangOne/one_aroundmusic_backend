@@ -11,5 +11,4 @@ public interface FriendJpaRepository extends JpaRepository<Friend, Long>, Friend
 
     Optional<Friend> findByUserAndFriend(User user, User friend);
 
-
 }

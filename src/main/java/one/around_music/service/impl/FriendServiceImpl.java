@@ -86,7 +86,17 @@ public class FriendServiceImpl implements FriendService{
 
         List<FriendVo> findInviteList = friendJpaRepository.findReciveInviteList(findUser.getId());
 
-        return CommonResponse.createResponse(HttpStatus.NO_CONTENT.value(), "친구 요청 목록을 조회합니다.", findInviteList);
+        return CommonResponse.createResponse(HttpStatus.NO_CONTENT.value(), "받은 친구 요청 목록을 조회합니다.", findInviteList);
+    }
+
+    @Override
+    public ResponseEntity<?> findAllSendInvite() {
+
+        User findUser = SecurityUtil.getCurrentUserId(userJpaRepository);
+
+        List<FriendVo> findInviteList = friendJpaRepository.findSendInviteList(findUser.getId());
+
+        return CommonResponse.createResponse(HttpStatus.NO_CONTENT.value(), "보낸 친구 요청 목록을 조회합니다.", findInviteList);
     }
 
     @Override
@@ -118,9 +128,9 @@ public class FriendServiceImpl implements FriendService{
     public ResponseEntity<?> findAllFriends() {
         User findUser = SecurityUtil.getCurrentUserId(userJpaRepository);
 
-        List<FriendVo> findInviteList = friendJpaRepository.findFriendList(findUser.getId());
+        List<FriendVo> findFiendList = friendJpaRepository.findFriendList(findUser.getId());
 
-        return CommonResponse.createResponse(HttpStatus.NO_CONTENT.value(), "친구 목록을 조회합니다.", findInviteList);
+        return CommonResponse.createResponse(HttpStatus.OK.value(), "친구 목록을 조회합니다.", findFiendList);
     }
 
 }
