@@ -28,16 +28,16 @@ public class MarkerServiceImpl implements MarkerService {
     private final UserRewardJpaRepositroy userRewardJpaRepositroy;
 
     @Override
-    public ResponseEntity<?> findAllMarker(RequestMarkerFindDto dto) {
+    public ResponseEntity<?> findAllMarker() {
         User findUser = SecurityUtil.getCurrentUserId(userJpaRepository);
-        List<Marker> markerList = markerJpaRepository.findAllByLatitudeBetweenAndLongitudeBetween(dto.getCurrent_latitude()-0.4, dto.getCurrent_latitude()+0.4, dto.getCurrent_longitude()-0.4, dto.getCurrent_longitude()+0.4);
+        List<Marker> markerList = markerJpaRepository.findAll();
         UserRewardVo reward = userRewardJpaRepositroy.findReward(findUser.getId(), RewardType.WALKING);
 
         HashMap<String, Object> response = new HashMap<>();
         response.put("reward", reward);
         response.put("marker", markerList);
 
-        return CommonResponse.createResponse(HttpStatus.OK.value(), "주변 부표를 조회합니다.", response);
+        return CommonResponse.createResponse(HttpStatus.OK.value(), "주변 마커를 조회합니다.", response);
     }
 
 }

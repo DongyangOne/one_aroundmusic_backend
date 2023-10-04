@@ -19,11 +19,22 @@ public class UserRewardCustomRepositoryImpl implements UserRewardCustomRepositor
     public UserRewardVo findReward(Long userId, RewardType rewardType) {
         QUserReward ur = QUserReward.userReward;
         return queryFactory.select(
-                    Projections.constructor(
-                            UserRewardVo.class,
-                            ur.reward.id,
-                            ur.reward.reward
-                    )
+                        Projections.constructor(
+                                UserRewardVo.class,
+                                ur.reward.id,
+                                ur.reward.reward
+                        )
+                ).from(ur)
+                .where(ur.user.id.eq(userId))
+                .where(ur.reward.rewardType.eq(rewardType))
+                .fetchOne();
+    }
+
+    @Override
+    public Long findUserReward(Long userId, RewardType rewardType) {
+        QUserReward ur = QUserReward.userReward;
+        return queryFactory.select(
+                        ur.id
                 ).from(ur)
                 .where(ur.user.id.eq(userId))
                 .where(ur.reward.rewardType.eq(rewardType))

@@ -15,7 +15,7 @@ public class SwaggerConfig {
 
 
 
-    public static final String FIND_ALL_MARKER_SUCCESS_RESPONSE = "{\"code\":200,\"message\":\"주변 마커 전체 조회에 성공했습니다.\", \"data\":[{\"id\": 1, \"latitude\": 37.500584, \"longitude\": 126.925425}]}";
+    public static final String FIND_ALL_MARKER_SUCCESS_RESPONSE = "{\"code\":200,\"message\":\"주변 마커를 조회합니다.\", \"data\":{\"reward\": {\"id\": 1, \"reward\": \"/walk/default.png\"}, \"marker\": [{\"id\": 1, \"latitude\": 37.500584, \"longitude\": 126.925425}]}}";
     public static final String AR_SAVE_SUCCESS_RESPONSE = "{\"code\":200,\"message\":\"AR 게시에 성공했습니다.\"}";
     public static final String FIND_ALL_AR_SUCCESS_RESPONSE = "{\"code\":200,\"message\":\"해당 마커 AR 전체 조회에 성공했습니다.\", \"data\":[{\"id\": 1, \"music\": {\"id\": 1, \"youtubeId\": \"string\", \"title\": \"title\", \"thumbnail\": \"/thumbnail/default.png\"}, \"reward\": \"/pop/default.png\", \"latitude\": 37.500584, \"longitude\": 126.925425}]}";
     public static final String AR_DELETE_SUCCESS_RESPONSE = "{\"code\":200,\"message\":\"AR 삭제에 성공했습니다.\"}";

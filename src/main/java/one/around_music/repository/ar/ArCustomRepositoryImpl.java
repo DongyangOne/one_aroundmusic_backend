@@ -23,7 +23,7 @@ public class ArCustomRepositoryImpl implements ArCustomRepository {
                         ar.id,
                         Projections.constructor(
                                 MusicVo.class,
-                                ar.music.youtubId,
+                                ar.id,
                                 ar.music.youtubId,
                                 ar.music.title,
                                 ar.music.thumbnail

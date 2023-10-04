@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface UserRewardCustomRepository {
     UserRewardVo findReward(Long userId, RewardType rewardType);
+    Long findUserReward(Long userId, RewardType rewardType);
 }
