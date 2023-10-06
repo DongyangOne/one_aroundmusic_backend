@@ -7,10 +7,13 @@ import one.around_music.common.util.SecurityUtil;
 import one.around_music.config.jwt.JwtDto;
 import one.around_music.config.jwt.JwtTokenProvider;
 import one.around_music.config.jwt.UserAuthority;
+import one.around_music.domain.Reward;
 import one.around_music.domain.User;
+import one.around_music.domain.UserReward;
 import one.around_music.dto.user.RequestUserLoginDto;
 import one.around_music.dto.user.RequestUserSaveDto;
 import one.around_music.dto.user.RequestUserUpdateDto;
+import one.around_music.enums.RewardType;
 import one.around_music.repository.reward.RewardJpaRepository;
 import one.around_music.repository.user.UserJpaRepository;
 import one.around_music.repository.userReward.UserRewardJpaRepositroy;
@@ -24,9 +27,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -36,6 +37,9 @@ public class UserServiceImpl implements UserService {
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final PasswordEncoder passwordEncoder;
+    private final RewardJpaRepository rewardJpaRepository;
+    private final UserRewardJpaRepositroy userRewardJpaRepositroy;
+
 
     @Override
     public ResponseEntity<?> saveUser(RequestUserSaveDto dto) {
@@ -45,8 +49,10 @@ public class UserServiceImpl implements UserService {
             throw new CustomException("이미 가입된 회원입니다.",  HttpStatus.BAD_REQUEST);
         }
 
-        userJpaRepository.save(User.builder().email(dto.getEmail()).authority(UserAuthority.USER).socialToken(passwordEncoder.encode(dto.getSocialToken()))
+        User user = userJpaRepository.save(User.builder().email(dto.getEmail()).authority(UserAuthority.USER).socialToken(passwordEncoder.encode(dto.getSocialToken()))
                 .nickname(dto.getNickname()).build());
+
+        setDefaultUserReward(user);
 
         return CommonResponse.createResponse(HttpStatus.OK.value(), "회원가입에 성공했습니다.");
     }
@@ -82,5 +88,15 @@ public class UserServiceImpl implements UserService {
         findUser.setProfileImg(dto.getProfileImg());
         userJpaRepository.save(findUser);
         return CommonResponse.createResponse(HttpStatus.OK.value(), "프로필 이미지 변경에 성공했습니다.");
+    }
+
+    public void setDefaultUserReward(User user) {
+        ArrayList<Reward> rewards = new ArrayList<>();
+        rewards.add(rewardJpaRepository.findFirstByRewardTypeOrderById(RewardType.WALKING).get());
+        rewards.add(rewardJpaRepository.findFirstByRewardTypeOrderById(RewardType.POPULARITY).get());
+        rewards.add(rewardJpaRepository.findFirstByRewardTypeOrderById(RewardType.LISTENING).get());
+        for(Reward reward: rewards) {
+            userRewardJpaRepositroy.save(UserReward.builder().user(user).reward(reward).build());
+        }
     }
 }
