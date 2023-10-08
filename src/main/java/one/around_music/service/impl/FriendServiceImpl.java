@@ -12,6 +12,7 @@ import one.around_music.repository.friend.FriendJpaRepository;
 import one.around_music.repository.user.UserJpaRepository;
 import one.around_music.service.FriendService;
 import one.around_music.vo.FriendVo;
+import one.around_music.vo.UserVo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -131,6 +132,13 @@ public class FriendServiceImpl implements FriendService{
         List<FriendVo> findFiendList = friendJpaRepository.findFriendList(findUser.getId());
 
         return CommonResponse.createResponse(HttpStatus.OK.value(), "친구 목록을 조회합니다.", findFiendList);
+    }
+
+    @Override
+    public ResponseEntity<?> findAllUserExceptFriends() {
+        User findUser = SecurityUtil.getCurrentUserId(userJpaRepository);
+        List<UserVo> users = friendJpaRepository.findAllUserExceptFriend(findUser.getId());
+        return CommonResponse.createResponse(HttpStatus.OK.value(), "유저 목록을 조회합니다.", users);
     }
 
 }

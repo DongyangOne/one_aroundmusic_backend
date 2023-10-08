@@ -1,10 +1,13 @@
 package one.around_music.repository.friend;
 
 import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import one.around_music.domain.QFriend;
+import one.around_music.domain.QUser;
 import one.around_music.vo.FriendVo;
+import one.around_music.vo.UserVo;
 
 import java.util.List;
 
@@ -78,4 +81,21 @@ public class FriendCustomRepositoryImpl implements FriendCustomRepository {
         return list;
     }
 
+    @Override
+    public List<UserVo> findAllUserExceptFriend(Long user_id) {
+        QUser u = QUser.user;
+        QFriend f = QFriend.friend1;
+        return queryFactory.select(
+                Projections.constructor(
+                        UserVo.class,
+                        u.id,
+                        u.nickname,
+                        u.profileImg
+                )
+        ).from(u)
+//                .leftJoin(f)
+//                .on(f.user.id.eq(u.id).or(f.friend.id.eq(u.id)))
+//                .where(f.status.isNull().or(f.user.id.ne(user_id).and(f.friend.id.ne(user_id))))
+                .fetch();
+    }
 }

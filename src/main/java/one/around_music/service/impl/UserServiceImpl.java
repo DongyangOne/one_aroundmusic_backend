@@ -78,11 +78,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<?> findAllUser() {
-        return null;
-    }
-
-    @Override
     public ResponseEntity<?> updateProfileImg(RequestUserUpdateDto dto) {
         User findUser = SecurityUtil.getCurrentUserId(userJpaRepository);
         findUser.setProfileImg(dto.getProfileImg());

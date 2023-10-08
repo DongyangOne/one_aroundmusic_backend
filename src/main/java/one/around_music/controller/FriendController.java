@@ -76,4 +76,9 @@ public class FriendController {
         return friendService.findAllFriends();
     }
 
+    @GetMapping("/user")
+    public ResponseEntity<?> findAllUserExceptFriends() {
+        return friendService.findAllUserExceptFriends();
+    }
+
 }
