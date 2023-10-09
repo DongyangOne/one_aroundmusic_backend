@@ -7,10 +7,7 @@ import lombok.RequiredArgsConstructor;
 import one.around_music.dto.music.RequestMusicSaveDto;
 import one.around_music.service.MusicService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,7 +20,7 @@ public class MusicController {
     @ApiResponses(value = {
     })
     @PostMapping
-    public ResponseEntity<?> saveMusic(RequestMusicSaveDto dto) {
+    public ResponseEntity<?> saveMusic(@RequestBody RequestMusicSaveDto dto) {
         return musicService.saveMusic(dto);
     }
 

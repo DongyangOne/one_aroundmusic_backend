@@ -25,7 +25,8 @@ public class MusicServiceImpl implements MusicService {
         if(findMusic.isPresent()) {
             return CommonResponse.createResponse(HttpStatus.OK.value(), "저장된 음악을 불러왔습니다.", findMusic);
         }
-        return CommonResponse.createResponse(HttpStatus.OK.value(), "음악을 저장했습니다.", musicJpaRepository.save(Music.builder().youtubId(dto.getYoutubeId()).title(dto.getTitle()).thumbnail(dto.getThumbnail()).build()));
+        musicJpaRepository.save(Music.builder().youtubId(dto.getYoutubeId()).title(dto.getTitle()).thumbnail(dto.getThumbnail()).build());
+        return CommonResponse.createResponse(HttpStatus.OK.value(), "음악을 저장했습니다.");
     }
 
     @Override
