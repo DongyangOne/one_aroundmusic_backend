@@ -100,6 +100,7 @@ public class FriendCustomRepositoryImpl implements FriendCustomRepository {
                                 .leftJoin(f)
                                 .on(u.id.eq(f.user.id).or(u.id.eq(f.friend.id)))
                                 .where(f.user.id.eq(user_id).or(f.friend.id.eq(user_id)))
+                                .distinct()
                 ))
                 .fetch();
     }

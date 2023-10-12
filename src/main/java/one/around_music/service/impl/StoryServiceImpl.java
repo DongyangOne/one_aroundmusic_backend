@@ -23,7 +23,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class StoryServiceRepository implements StoryService {
+public class StoryServiceImpl implements StoryService {
 
     private final StoryJpaRepository storyJpaRepository;
     private final UserJpaRepository userJpaRepository;
@@ -48,13 +48,21 @@ public class StoryServiceRepository implements StoryService {
 
     @Override
     public ResponseEntity<?> findStoryUser() {
-        List<UserVo> findUsers = storyJpaRepository.findStoryUser();
-        return CommonResponse.createResponse(HttpStatus.OK.value(), "스토리를 게시한 유저 목록을 조회합니다.", findUsers);
+        User findUser = SecurityUtil.getCurrentUserId(userJpaRepository);
+        List<UserVo> findUsers = storyJpaRepository.findStoryUser(findUser.getId());
+        return CommonResponse.createResponse(HttpStatus.OK.value(), "스토리를 게시한 친구 목록을 조회합니다.", findUsers);
     }
 
     @Override
     public ResponseEntity<?> findStory(Long userId) {
         List<MusicVo> storys = storyJpaRepository.findAllStory(userId);
         return CommonResponse.createResponse(HttpStatus.OK.value(), "스토리를 조회합니다.", storys);
+    }
+
+    @Override
+    public ResponseEntity<?> findMyStory() {
+        User findUser = SecurityUtil.getCurrentUserId(userJpaRepository);
+        List<MusicVo> myStory = storyJpaRepository.findAllStory(findUser.getId());
+        return CommonResponse.createResponse(HttpStatus.OK.value(), "나의 스토리를 조회합니다.", myStory);
     }
 }

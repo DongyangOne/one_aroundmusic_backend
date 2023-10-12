@@ -8,6 +8,6 @@ public interface StoryService {
     ResponseEntity<?> saveStory(RequestStorySaveDto dto);
     ResponseEntity<?> findStoryUser();
     ResponseEntity<?> findStory(Long userId);
-
+    ResponseEntity<?> findMyStory();
 
 }

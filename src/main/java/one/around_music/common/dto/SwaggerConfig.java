@@ -14,7 +14,8 @@ public class SwaggerConfig {
     public static final String FIND_ALL_RECIVE_INVITE_SUCCESS_RESPONSE = "{\"code\":200,\"message\":\"받은 친구 요청 전체 조회에 성공했습니다.\", \"data\":[{\"id\": 1, \"friendId\": 3, \"nickname\": \"nickname\", \"profileImg\": \"proflie/default.png\"}]}";
     public static final String FIND_ALL_SEND_INVITE_SUCCESS_RESPONSE = "{\"code\":200,\"message\":\"보낸 친구 요청 전체 조회에 성공했습니다.\", \"data\":[{\"id\": 1, \"friendId\": 3, \"nickname\": \"nickname\", \"profileImg\": \"proflie/default.png\"}]}";
     public static final String FIND_ALL_FRIEND_SUCCESS_RESPONSE = "{\"code\":200,\"message\":\"모든 친구 요청 전체 조회에 성공했습니다.\", \"data\":[{\"id\": 1, \"friendId\": 3, \"nickname\": \"nickname\", \"profileImg\": \"proflie/default.png\"}]}";
-    public static final String FIND_ALL_USER_EXCEPT_FRIEND_SUCCESS_RESPONSE = "{\n" +
+    public static final String FIND_ALL_USER_EXCEPT_FRIEND_SUCCESS_RESPONSE =
+            "{\n" +
             "  \"code\": 200,\n" +
             "  \"message\": \"유저 목록을 조회합니다.\",\n" +
             "  \"data\": [\n" +

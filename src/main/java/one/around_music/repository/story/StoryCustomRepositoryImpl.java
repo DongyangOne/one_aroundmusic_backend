@@ -1,9 +1,12 @@
 package one.around_music.repository.story;
 
 import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import one.around_music.domain.QFriend;
 import one.around_music.domain.QStory;
+import one.around_music.domain.QUser;
 import one.around_music.vo.MusicVo;
 import one.around_music.vo.UserVo;
 
@@ -31,8 +34,11 @@ public class StoryCustomRepositoryImpl implements StoryCustomRepository{
     }
 
     @Override
-    public List<UserVo> findStoryUser() {
+    public List<UserVo> findStoryUser(Long userId) {
         QStory s = QStory.story;
+        QUser u = QUser.user;
+        QFriend f = QFriend.friend1;
+
         return queryFactory.select(
                 Projections.constructor(
                         UserVo.class,
@@ -41,7 +47,14 @@ public class StoryCustomRepositoryImpl implements StoryCustomRepository{
                         s.user.profileImg
                 )
         ).from(s)
-                .groupBy(s.user)
+                .where(s.user.id.in(
+                        JPAExpressions.select(u.id)
+                                .from(u)
+                                .innerJoin(f)
+                                .on(f.user.id.eq(u.id).or(f.friend.id.eq(u.id)))
+                                .where(f.user.id.eq(userId).or(f.friend.id.eq(userId)).and(f.status.eq("Y")))
+                ).and(s.user.id.ne(userId)))
+                .distinct()
                 .fetch();
     }
 

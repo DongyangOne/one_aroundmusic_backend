@@ -48,4 +48,13 @@ public class StoryController {
         return storyService.findStoryUser();
     }
 
+    @Operation(summary = "Find My Story", description = "나의 스토리 조회 API")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json", examples = {@ExampleObject(value = SwaggerConfig.FIND_STORY_SUCCESS_RESPONSE)})),
+    })
+    @GetMapping("/my")
+    public ResponseEntity<?> findMyStory() {
+        return storyService.findMyStory();
+    }
+
 }

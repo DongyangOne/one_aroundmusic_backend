@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface StoryCustomRepository {
     List<MusicVo> findAllStory(Long userId);
-    List<UserVo> findStoryUser();
+    List<UserVo> findStoryUser(Long userId);
 }
