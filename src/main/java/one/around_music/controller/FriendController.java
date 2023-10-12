@@ -76,6 +76,10 @@ public class FriendController {
         return friendService.findAllFriends();
     }
 
+    @Operation(summary = "Find All User", description = "친구 관계 제외한 유저 전체 조회 API")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json", examples = {@ExampleObject(value = SwaggerConfig.FIND_ALL_USER_EXCEPT_FRIEND_SUCCESS_RESPONSE)})),
+    })
     @GetMapping("/user")
     public ResponseEntity<?> findAllUserExceptFriends() {
         return friendService.findAllUserExceptFriends();

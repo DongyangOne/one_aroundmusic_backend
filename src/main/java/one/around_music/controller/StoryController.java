@@ -23,6 +23,7 @@ public class StoryController {
 
     @Operation(summary = "Save Story", description = "스토리 게시 API")
     @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json", examples = {@ExampleObject(value = SwaggerConfig.STORY_SAVE_SUCCESS_RESPONSE)})),
     })
     @PostMapping
     public ResponseEntity<?> saveStory(@RequestBody RequestStorySaveDto dto) {
@@ -31,6 +32,7 @@ public class StoryController {
 
     @Operation(summary = "Find Story", description = "스토리 조회 API")
     @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json", examples = {@ExampleObject(value = SwaggerConfig.FIND_STORY_SUCCESS_RESPONSE)})),
     })
     @GetMapping("/{userId}")
     public ResponseEntity<?> findStory(@PathVariable Long userId) {
@@ -39,6 +41,7 @@ public class StoryController {
 
     @Operation(summary = "Find Story User", description = "스토리 게시 유저 조회 API")
     @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json", examples = {@ExampleObject(value = SwaggerConfig.FIND_STORY_USER_SUCCESS_RESPONSE)})),
     })
     @GetMapping
     public ResponseEntity<?> findStoryUser() {

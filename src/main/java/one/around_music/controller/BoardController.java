@@ -1,9 +1,13 @@
 package one.around_music.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import one.around_music.common.dto.SwaggerConfig;
 import one.around_music.dto.board.RequestBoardSaveDto;
 import one.around_music.service.BoardService;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +22,7 @@ public class BoardController {
 
     @Operation(summary = "Save Board", description = "게시글 게시 API")
     @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json", examples = {@ExampleObject(value = SwaggerConfig.BOARD_SAVE_SUCCESS_RESPONSE)})),
     })
     @PostMapping
     public ResponseEntity<?> saveBoard(@RequestBody RequestBoardSaveDto dto) {
@@ -26,6 +31,7 @@ public class BoardController {
 
     @Operation(summary = "Find Board", description = "게시글 조회 API")
     @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json", examples = {@ExampleObject(value = SwaggerConfig.FIND_BOARD_SUCCESS_RESPONSE)})),
     })
     @GetMapping
     public ResponseEntity<?> findBoard() {
@@ -34,6 +40,7 @@ public class BoardController {
 
     @Operation(summary = "Delete Board", description = "게시글 삭제 API")
     @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json", examples = {@ExampleObject(value = SwaggerConfig.DELETE_BOARD_SUCCESS_RESPONSE)})),
     })
     @DeleteMapping("/{boardId}")
     public ResponseEntity<?> deleteBoard(@PathVariable Long boardId) {

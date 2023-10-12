@@ -81,6 +81,7 @@ public class FriendCustomRepositoryImpl implements FriendCustomRepository {
         return list;
     }
 
+    // 나와 관련된 어떠한 친구 관계도 없는 (tbl_friend에 나와 관련된 유저 전체 제외)유저 조회
     @Override
     public List<UserVo> findAllUserExceptFriend(Long user_id) {
         QUser u = QUser.user;
@@ -93,9 +94,13 @@ public class FriendCustomRepositoryImpl implements FriendCustomRepository {
                         u.profileImg
                 )
         ).from(u)
-//                .leftJoin(f)
-//                .on(f.user.id.eq(u.id).or(f.friend.id.eq(u.id)))
-//                .where(f.status.isNull().or(f.user.id.ne(user_id).and(f.friend.id.ne(user_id))))
+                .where(u.id.notIn(
+                        JPAExpressions.select(u.id)
+                                .from(u)
+                                .leftJoin(f)
+                                .on(u.id.eq(f.user.id).or(u.id.eq(f.friend.id)))
+                                .where(f.user.id.eq(user_id).or(f.friend.id.eq(user_id)))
+                ))
                 .fetch();
     }
 }
