@@ -6,8 +6,8 @@ import lombok.Data;
 @Data
 public class RequestSelectRewardDto {
 
-    @Schema(example = "2")
-    private Long current_id;
+    @Schema(example = "walk | pop | listen")
+    private String rewardType;
 
     @Schema(example = "5")
     private Long select_id;

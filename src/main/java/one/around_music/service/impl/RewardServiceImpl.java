@@ -77,23 +77,37 @@ public class RewardServiceImpl implements RewardService {
     public ResponseEntity<?> selectReward(RequestSelectRewardDto dto) {
         User findUser = SecurityUtil.getCurrentUserId(userJpaRepository);
 
-        Optional<Reward> findReward = rewardJpaRepository.findById(dto.getCurrent_id());
-        if(findReward.isEmpty()) {
-            throw new CustomException("현재 리워드 정보를 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
-        }
-
-        Optional<Reward> updateReward = rewardJpaRepository.findById(dto.getSelect_id());
-        if(updateReward.isEmpty()) {
-            throw new CustomException("선택한 리워드 정보를 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
-        }
-
-        Optional<UserReward> findUserReward = userRewardJpaRepositroy.findByRewardAndUser(findReward.get(), findUser);
-        if(findUserReward.isEmpty()) {
-            userRewardJpaRepositroy.save(UserReward.builder().user(findUser).reward(findReward.get()).build());
+        RewardType rt;
+        if(dto.getRewardType().equals("walk")) {
+            rt = RewardType.WALKING;
+        } else if(dto.getRewardType().equals("pop")) {
+            rt = RewardType.POPULARITY;
+        } else if(dto.getRewardType().equals("listen")) {
+            rt = RewardType.LISTENING;
         } else {
-            findUserReward.get().setReward(updateReward.get());
-            userRewardJpaRepositroy.save(findUserReward.get());
+            throw new CustomException("리워트 타입 확인해주세요.", HttpStatus.BAD_REQUEST);
         }
+
+        Long findUserReward = userRewardJpaRepositroy.findUserReward(findUser.getId(), rt);
+
+        if(findUserReward == null) {
+            Optional<Reward> reward = rewardJpaRepository.findFirstByRewardTypeOrderById(rt);
+            if(reward.isEmpty()) {
+                throw new CustomException("리워드 오류", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+            userRewardJpaRepositroy.save(UserReward.builder().user(findUser).reward(reward.get()).build());
+            throw new CustomException("오류로인해 기본값으로 재설정 되었습니다. 다시 요청해주세요.", HttpStatus.RESET_CONTENT);
+        }
+
+        UserReward userReward = userRewardJpaRepositroy.findById(findUserReward).get();
+        Optional<Reward> reward = rewardJpaRepository.findById(dto.getSelect_id());
+        if(reward.isEmpty()) {
+            throw new CustomException("선택한 리워드를 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
+        } else if(reward.get().getRewardType() != rt) {
+            throw new CustomException("리워드 타입이 잘못 되었습니다.", HttpStatus.BAD_REQUEST);
+        }
+        userReward.setReward(reward.get());
+        userRewardJpaRepositroy.save(userReward);
         return CommonResponse.createResponse(HttpStatus.OK.value(), "리워드 적용에 성공했습니다.");
     }
 }

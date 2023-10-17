@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface MusicJpaRepository extends JpaRepository<Music, Long> {
+public interface MusicJpaRepository extends JpaRepository<Music, Long>, MusicCustomRepository {
     Optional<Music> findByYoutubId(String youtubeId);
 }

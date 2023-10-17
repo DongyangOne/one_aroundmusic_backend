@@ -8,13 +8,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import one.around_music.common.dto.SwaggerConfig;
-import one.around_music.dto.marker.RequestMarkerFindDto;
 import one.around_music.service.MarkerService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,13 +20,13 @@ public class MarkerController {
 
     private final MarkerService markerService;
 
-    @Operation(summary = "Find All Marker", description = "주변 마커 전체 조회 (현재 나의 위치를 입력 받아 주변 마커를 전부 조회합니다.)")
+    @Operation(summary = "Find All Marker", description = "마커 전체 조회")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json", examples = {@ExampleObject(value = SwaggerConfig.FIND_ALL_MARKER_SUCCESS_RESPONSE)})),
     })
-    @PostMapping()
-    public ResponseEntity<?> findAllMarker(@RequestBody RequestMarkerFindDto dto) {
-        return markerService.findAllMarker(dto);
+    @GetMapping()
+    public ResponseEntity<?> findAllMarker() {
+        return markerService.findAllMarker();
     }
 
 }

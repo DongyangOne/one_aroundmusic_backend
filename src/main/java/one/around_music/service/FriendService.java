@@ -12,4 +12,5 @@ public interface FriendService {
     ResponseEntity<?> findAllSendInvite();
     ResponseEntity<?> updateInvite(RequestInviteUpdateDto dto);
     ResponseEntity<?> findAllFriends();
+    ResponseEntity<?> findAllUserExceptFriends();
 }
