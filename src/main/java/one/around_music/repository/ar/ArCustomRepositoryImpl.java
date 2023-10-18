@@ -14,7 +14,7 @@ import java.util.List;
 public class ArCustomRepositoryImpl implements ArCustomRepository {
     private final JPAQueryFactory queryFactory;
     @Override
-    public List<ArVo> findArList(Long markerId) {
+    public List<ArVo> findArList() {
         QAr ar = QAr.ar;
         QUserReward ur = QUserReward.userReward;
         return queryFactory.select(
@@ -35,8 +35,8 @@ public class ArCustomRepositoryImpl implements ArCustomRepository {
         ).from(ar)
                 .leftJoin(ur)
                 .on(ar.user.eq(ur.user))
-                .where(ar.marker.id.eq(markerId))
                 .where(ur.reward.rewardType.eq(RewardType.POPULARITY))
-                .fetch();
+                .orderBy(ar.id.desc())
+                .fetch().subList(0, 10);
     }
 }

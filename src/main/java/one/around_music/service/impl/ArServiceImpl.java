@@ -52,17 +52,11 @@ public class ArServiceImpl implements ArService {
     }
 
     @Override
-    public ResponseEntity<?> findAllAr(Long markerId) {
+    public ResponseEntity<?> findAllAr() {
 
-        Optional<Marker> findMarker = markerJpaRepository.findById(markerId);
+        List<ArVo> arList = arJpaRepository.findArList();
 
-        if(findMarker.isEmpty()) {
-            throw new CustomException("마커 정보를 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
-        }
-
-        List<ArVo> arList = arJpaRepository.findArList(markerId);
-
-        return CommonResponse.createResponse(HttpStatus.OK.value(), "마커에 해당하는 AR을 조회합니다.", arList);
+        return CommonResponse.createResponse(HttpStatus.OK.value(), "AR을 조회합니다.", arList);
     }
 
     @Override
