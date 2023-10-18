@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 public interface ArService {
 
     ResponseEntity<?> saveAr(RequestArSaveDto dto);
-    ResponseEntity<?> findAllAr(Long markerId);
+    ResponseEntity<?> findAllAr();
     ResponseEntity<?> deleteAr(Long arId);
 
 }

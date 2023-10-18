@@ -30,13 +30,13 @@ public class ArController {
         return arService.saveAr(dto);
     }
 
-    @Operation(summary = "Find All AR", description = "AR 전체 조회 API (마커 id를 받아 그 마커에 해당하는 모든 ar를 조회합니다.)")
+    @Operation(summary = "Find All AR", description = "AR 전체 조회 API (최신 ar 10개 조회합니다.)")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json", examples = {@ExampleObject(value = SwaggerConfig.FIND_ALL_AR_SUCCESS_RESPONSE)})),
     })
-    @GetMapping("/{id}")
-    public ResponseEntity<?> findAllAr(@PathVariable Long id) {
-        return arService.findAllAr(id);
+    @GetMapping
+    public ResponseEntity<?> findAllAr() {
+        return arService.findAllAr();
     }
 
     @Operation(summary = "Delete AR", description = "AR 삭제 API")

@@ -67,11 +67,11 @@ public class FriendServiceImpl implements FriendService{
             throw new CustomException("친구 관계가 존재하지 않습니다.", HttpStatus.NOT_FOUND);
         }
 
-        if(!findFriend.get().getFriend().equals(findUser) || !findFriend.get().getFriend().equals(findUser)) {
+        if(!findFriend.get().getFriend().equals(findUser) && !findFriend.get().getUser().equals(findUser)) {
             throw new CustomException("본인과 관련된 친구관계가 아닙니다.", HttpStatus.BAD_REQUEST);
         }
 
-        if(!findFriend.get().getStatus().equals("N")) {
+        if(findFriend.get().getStatus().equals("N")) {
             throw new CustomException("아직 친구 관계가 아닙니다.", HttpStatus.BAD_REQUEST);
         }
 
