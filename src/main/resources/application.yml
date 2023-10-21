@@ -1,11 +1,11 @@
 jwt:
-  secret:
+  secret: RG9uZ3lhbmcgTWlyYWUgVW51dmVyY2lyeSBNYXJzIFNlcXVlcmUgQ2x1YiA0dGggVG9kbyBQcm9qZWN0IEZyb250IGlzIFJlYWN0IGFuZCBTZXJ2ZXIgaXMgU3ByaW5n
 
 spring:
   datasource:
-    url: jdbc:mysql://
-    username:
-    password:
+    url: jdbc:mysql://125.133.34.224:3306/one_ar
+    username: one
+    password: one2023
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
@@ -31,3 +31,7 @@ springdoc:
 
 server:
   port: 8001
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-type: PKCS12
+    key-store-password: onehanda
