@@ -2,6 +2,9 @@ jwt:
   secret: RG9uZ3lhbmcgTWlyYWUgVW51dmVyY2lyeSBNYXJzIFNlcXVlcmUgQ2x1YiA0dGggVG9kbyBQcm9qZWN0IEZyb250IGlzIFJlYWN0IGFuZCBTZXJ2ZXIgaXMgU3ByaW5n
 
 spring:
+  profiles:
+    active: local
+
   datasource:
     url: jdbc:mysql://125.133.34.224:3306/one_ar
     username: one
