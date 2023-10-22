@@ -50,4 +50,13 @@ public class UserController {
         return userService.updateProfileImg(dto);
     }
 
+    @Operation(summary = "Find My Info", description = "내 정보 조회")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json", examples = {@ExampleObject(value = SwaggerConfig.FIND_MY_INFO_SUCCESS_RESPONSE)})),
+    })
+    @GetMapping("/my")
+    public ResponseEntity<?> findUser() {
+        return userService.findUser();
+    }
+
 }
