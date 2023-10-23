@@ -32,7 +32,7 @@ public class FriendServiceImpl implements FriendService{
 
         User findUser = SecurityUtil.getCurrentUserId(userJpaRepository);
 
-        Optional<User> findFriend = userJpaRepository.findById(dto.getFirendId());
+        Optional<User> findFriend = userJpaRepository.findById(dto.getFriendId());
 
         if(findFriend.isEmpty()) {
             throw new CustomException("대상 유저를 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
@@ -116,10 +116,12 @@ public class FriendServiceImpl implements FriendService{
         if(dto.getAccept().equals("Y")) {
             findInvite.get().setStatus(dto.getAccept());
             friendJpaRepository.save(findInvite.get());
+            return CommonResponse.createResponse(HttpStatus.OK.value(), "친구 요청 수락에 성공했습니다.");
         }
 
         if(dto.getAccept().equals("N")) {
             friendJpaRepository.delete(findInvite.get());
+            return CommonResponse.createResponse(HttpStatus.OK.value(), "친구 요청 거절에 성공했습니다.");
         }
 
         throw new CustomException("잘못된 요청입니다.", HttpStatus.BAD_REQUEST);

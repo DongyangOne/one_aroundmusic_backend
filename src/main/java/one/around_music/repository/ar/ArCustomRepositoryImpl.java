@@ -26,7 +26,9 @@ public class ArCustomRepositoryImpl implements ArCustomRepository {
                                 ar.id,
                                 ar.music.youtubId,
                                 ar.music.title,
-                                ar.music.thumbnail
+                                ar.music.thumbnail,
+                                ar.music.href,
+                                ar.music.singer
                         ),
                         ur.reward.reward,
                         ar.latitude,

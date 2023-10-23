@@ -20,4 +20,11 @@ public class RequestArSaveDto {
 
     @Schema(example = "126.867021")
     private double longitude;
+
+    @Schema(example = "https://p.scdn.co/mp3-preview/c7317d8cd93e2e37901d3e9a91defb60817a022e?cid=e58220cc9b0e4832aac9f6b7d6c3bf5c")
+    private String href;
+
+    @Schema(example = "singer")
+    private String singer;
+
 }

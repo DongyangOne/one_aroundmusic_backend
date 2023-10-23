@@ -44,7 +44,7 @@ public class ArServiceImpl implements ArService {
             return CommonResponse.createResponse(HttpStatus.OK.value(), "AR게시에 성공했습니다.");
         }
 
-        Music music = musicJpaRepository.save(Music.builder().youtubId(dto.getYoutubeId()).title(dto.getTitle()).thumbnail(dto.getThumbnail()).build());
+        Music music = musicJpaRepository.save(Music.builder().youtubId(dto.getYoutubeId()).title(dto.getTitle()).thumbnail(dto.getThumbnail()).href(dto.getHref()).singer(dto.getSinger()).build());
         arJpaRepository.save(Ar.builder().user(findUser).marker(marker).music(music).longitude(dto.getLongitude()).latitude(dto.getLatitude()).build());
 
         return CommonResponse.createResponse(HttpStatus.OK.value(), "AR게시에 성공했습니다.");

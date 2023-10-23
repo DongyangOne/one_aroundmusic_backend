@@ -31,6 +31,6 @@ public class Board extends BaseEntity {
     @Column(name = "location", length = 100)
     private String location;
 
-    @Column(name = "img", length = 100)
+    @Column(name = "img", length = 300)
     private String img;
 }
