@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class RequestFriendSaveDto {
 
-    private Long firendId;
+    private Long friendId;
 
 }

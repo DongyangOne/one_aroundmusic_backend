@@ -10,5 +10,6 @@ public class MusicVo {
     private String youtubeId;
     private String title;
     private String thumbnail;
-
+    private String href;
+    private String singer;
 }

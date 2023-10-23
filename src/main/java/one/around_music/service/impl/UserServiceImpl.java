@@ -18,6 +18,7 @@ import one.around_music.repository.reward.RewardJpaRepository;
 import one.around_music.repository.user.UserJpaRepository;
 import one.around_music.repository.userReward.UserRewardJpaRepositroy;
 import one.around_music.service.UserService;
+import one.around_music.vo.UserVo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -83,6 +84,13 @@ public class UserServiceImpl implements UserService {
         findUser.setProfileImg(dto.getProfileImg());
         userJpaRepository.save(findUser);
         return CommonResponse.createResponse(HttpStatus.OK.value(), "프로필 이미지 변경에 성공했습니다.");
+    }
+
+    @Override
+    public ResponseEntity<?> findUser() {
+        User findUser = SecurityUtil.getCurrentUserId(userJpaRepository);
+        UserVo user = new UserVo(findUser.getId(), findUser.getNickname(), findUser.getProfileImg());
+        return CommonResponse.createResponse(HttpStatus.OK.value(), "유저 정보를 조회합니다.", user);
     }
 
     public void setDefaultUserReward(User user) {

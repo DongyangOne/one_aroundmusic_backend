@@ -24,7 +24,7 @@ public class Reward extends BaseEntity {
     @Column(name = "reward_type", nullable = false)
     private RewardType rewardType;
 
-    @Column(name = "reward", length = 120)
+    @Column(name = "reward", length = 300)
     private String reward;
 
 }

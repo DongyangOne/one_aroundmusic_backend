@@ -29,4 +29,10 @@ public class Music extends BaseEntity {
     @Column(name = "thumbnail", nullable = false, length = 100)
     private String thumbnail;
 
+    @Column(name = "href", length = 200)
+    private String href;
+
+    @Column(name = "singer", length = 40)
+    private String singer;
+
 }

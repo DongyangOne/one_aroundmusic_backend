@@ -44,7 +44,7 @@ public class FriendCustomRepositoryImpl implements FriendCustomRepository {
                                 f.friend.profileImg
                         )
                 ).from(f)
-                .where(f.status.eq("Y"))
+                .where(f.status.eq("N"))
                 .where((f.user.id.eq(userId))).fetch();
 
         return list;
