@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface RewardCustomRepository {
     List<RewardVo> findAllByRewardType(RewardType rewardType);
+    String getToken();
 }
