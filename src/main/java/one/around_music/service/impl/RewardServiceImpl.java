@@ -110,4 +110,9 @@ public class RewardServiceImpl implements RewardService {
         userRewardJpaRepositroy.save(userReward);
         return CommonResponse.createResponse(HttpStatus.OK.value(), "리워드 적용에 성공했습니다.");
     }
+
+    @Override
+    public String getToken() {
+        return rewardJpaRepository.getToken();
+    }
 }

@@ -29,7 +29,6 @@ public class User extends BaseEntity {
     private String nickname;
 
     @Column(name = "profileImg", length = 300)
-    @ColumnDefault("https://firebasestorage.googleapis.com/v0/b/aroundmusic.appspot.com/o/profile%2Fdefault.png?alt=media&token=ec855454-c305-499c-9b7b-adc3736484be")
     private String profileImg;
 
     @Column(name = "socialToken", length = 200, nullable = false)

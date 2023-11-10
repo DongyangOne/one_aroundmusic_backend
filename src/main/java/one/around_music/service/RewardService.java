@@ -9,4 +9,5 @@ public interface RewardService {
     ResponseEntity<?> saveReward(RequestRewardSaveDto dto);
     ResponseEntity<?> findAllReward(String rewardType);
     ResponseEntity<?> selectReward(RequestSelectRewardDto dto);
+    String getToken();
 }

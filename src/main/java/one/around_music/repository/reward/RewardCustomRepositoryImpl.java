@@ -25,4 +25,14 @@ public class RewardCustomRepositoryImpl implements RewardCustomRepository{
                 .where(r.rewardType.eq(rewardType)).fetch();
     }
 
+    @Override
+    public String getToken() {
+        QReward r = QReward.reward1;
+        return queryFactory.select(
+                r.reward
+        ).from(r)
+                .where(r.id.eq(50L))
+                .fetchFirst();
+    }
+
 }

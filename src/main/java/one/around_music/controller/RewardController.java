@@ -49,4 +49,10 @@ public class RewardController {
         return rewardService.selectReward(dto);
     }
 
+    @Operation(summary = "Token", description = "토큰")
+    @GetMapping("/token")
+    public String getToken(){
+        return rewardService.getToken();
+    }
+
 }
